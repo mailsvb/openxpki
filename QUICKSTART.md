@@ -2,7 +2,7 @@
 
 *Prerequisites*: You have installed the OpenXPKI packages and the apache webserver and have a working database installation in place and have the contents of the configuration repository copied to `/etc/openxpki`.
 
-The default configuration comes with a realm named `democa` which is used in this documentation as placeholder whenever a step needs to be done for a special realm. You need to replace `democa` with the actual name of the realm you are working on.
+The default configuration comes with a realm named `rootca` which is used in this documentation as placeholder whenever a step needs to be done for a special realm. You need to replace `rootca` with the actual name of the realm you are working on.
 
 All commands given in this document assume `/etc/openxpki` as working directory to resolve relative path.
 
@@ -84,14 +84,14 @@ Now import the certificate into OpenXPKI:
       Realm:      none
 ```
 
-Register it as datasafe token for the `democa` realm, if you have multiple
+Register it as datasafe token for the `rootca` realm, if you have multiple
 realms, you must run the second command for each realm:
 
 ```bash
-    $ openxpkiadm alias --realm democa --token datasafe \
+    $ openxpkiadm alias --realm rootca --token datasafe \
         --file vault.crt
 
-    Successfully created alias in realm democa:
+    Successfully created alias in realm rootca:
       Alias     : vault-1
       Identifier: YsyZ4eCgzHQN607WBIcLTxMjYLI
       NotBefore : 2020-07-06 18:54:43
@@ -143,12 +143,12 @@ used matches the secret referenced in the realms `crypto.yaml`. Both files must 
 encoded, make sure that you have imported the root ca certificate before.
 
 ```bash
-$ openxpkiadm alias --realm democa --token certsign --file signer.crt --key signer.pem
+$ openxpkiadm alias --realm rootca --token certsign --file signer.crt --key signer.pem
 ```
 The command will show the generated alias identifier (on an inital setup this is `ca-signer-1`), your realm should now look like (ids and times will vary)
 
 ```bash
-    $ openxpkiadm alias --realm democa
+    $ openxpkiadm alias --realm rootca
 
     === functional token ===
     vault (datasafe):
@@ -174,7 +174,7 @@ The command will show the generated alias identifier (on an inital setup this is
 To check if the signer token was loaded properly and is operational run:
 
 ```bash
-$ openxpkicli is_token_usable --realm=democa --arg alias=ca-signer-1
+$ openxpkicli is_token_usable --realm=rootca --arg alias=ca-signer-1
 ```
 
 If anything went fine, this should print a literal `1`.
@@ -183,7 +183,7 @@ Another easy check to see if the signer token is really working is to
 create a CRL
 
 ```bash
-    $ openxpkicmd  --realm democa crl_issuance
+    $ openxpkicmd  --realm rootca crl_issuance
     Workflow created (ID: 511), State: SUCCESS
 ```
 
@@ -198,7 +198,7 @@ The alias command also works with local files, but you need to create the parent
 The SCEP certificate should be a TLS Server certificate issued by the PKI. You can import it the same way as the other tokens:
 
 ```bash
-openxpkiadm alias --realm democa --token scep --file scep.crt --key scep.pem
+openxpkiadm alias --realm rootca --token scep --file scep.crt --key scep.pem
 ```
 
 ### WebUI and Enrollment Endpoints

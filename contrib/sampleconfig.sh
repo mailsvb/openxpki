@@ -22,7 +22,7 @@ else
    exit 1
 fi
 
-REALM='democa'
+REALM='rootca'
 FQDN=`hostname -f`
 # For automated testing we want to have this set to root
 # unset this to get random passwords (put into the .pass files)
@@ -58,7 +58,6 @@ make_password() {
 #
 
 BACKUP_SUFFIX='~'
-GENERATION=$(date +%Y%m%d)
 
 # root CA selfsigned (in production use company's root certificate)
 ROOT_CA='OpenXPKI_Root_CA'
@@ -66,7 +65,7 @@ ROOT_CA_REQUEST="${TMP_CA_DIR}/${ROOT_CA}.csr"
 ROOT_CA_KEY="${TMP_CA_DIR}/${ROOT_CA}.key"
 ROOT_CA_KEY_PASSWORD="${TMP_CA_DIR}/${ROOT_CA}.pass"
 ROOT_CA_CERTIFICATE="${TMP_CA_DIR}/${ROOT_CA}.crt"
-ROOT_CA_SUBJECT="/CN=OpenXPKI Root CA ${GENERATION}"
+ROOT_CA_SUBJECT="/C=DE/O=Mitel/OU=Development/CN=Root CA"
 ROOT_CA_SERVER_FQDN='rootca.openxpki.net'
 
 # issuing CA signed by root CA above
@@ -75,7 +74,7 @@ ISSUING_CA_REQUEST="${TMP_CA_DIR}/${ISSUING_CA}.csr"
 ISSUING_CA_KEY="${TMP_CA_DIR}/${ISSUING_CA}.key"
 ISSUING_CA_KEY_PASSWORD="${TMP_CA_DIR}/${ISSUING_CA}.pass"
 ISSUING_CA_CERTIFICATE="${TMP_CA_DIR}/${ISSUING_CA}.crt"
-ISSUING_CA_SUBJECT="/C=DE/O=OpenXPKI/OU=PKI/CN=OpenXPKI Demo Issuing CA ${GENERATION}"
+ISSUING_CA_SUBJECT="/C=DE/O=Mitel/OU=Development/CN=Issuing CA"
 
 # SCEP registration authority certificate signed by root CA above
 SCEP='OpenXPKI_SCEP_RA'
@@ -83,7 +82,7 @@ SCEP_REQUEST="${TMP_CA_DIR}/${SCEP}.csr"
 SCEP_KEY="${TMP_CA_DIR}/${SCEP}.key"
 SCEP_KEY_PASSWORD="${TMP_CA_DIR}/${SCEP}.pass"
 SCEP_CERTIFICATE="${TMP_CA_DIR}/${SCEP}.crt"
-SCEP_SUBJECT="/CN=${FQDN}:scep-ra"
+SCEP_SUBJECT="/C=DE/O=Mitel/OU=Development/CN=SCEP-RA"
 
 # Apache WEB certificate signed by root CA above
 WEB='OpenXPKI_WebUI'
@@ -174,8 +173,8 @@ distinguished_name	= req_distinguished_name
 # x509_extensions               = v3_web_reqexts
 
 [ req_distinguished_name ]
-domainComponent		= Domain Component
-commonName		= Common Name
+domainComponent		   = Domain Component
+commonName		         = Common Name
 
 [ v3_ca_reqexts ]
 subjectKeyIdentifier    = hash
@@ -207,7 +206,7 @@ keyUsage                = digitalSignature, keyCertSign, cRLSign
 basicConstraints        = critical,CA:TRUE
 authorityKeyIdentifier  = keyid:always,issuer:always
 #crlDistributionPoints	= ${ROOT_CA_REVOCATION_URI}
-#authorityInfoAccess	= caIssuers;${ROOT_CA_CERTIFICATE_URI}
+#authorityInfoAccess	   = caIssuers;${ROOT_CA_CERTIFICATE_URI}
 
 [ v3_datavault_extensions ]
 subjectKeyIdentifier    = hash
@@ -227,9 +226,9 @@ subjectKeyIdentifier    = hash
 keyUsage                = critical, digitalSignature, keyEncipherment
 extendedKeyUsage        = serverAuth, clientAuth
 basicConstraints        = critical,CA:FALSE
-subjectAltName		= DNS:${WEB_SERVER_FQDN}
+subjectAltName		      = DNS:${WEB_SERVER_FQDN}
 #crlDistributionPoints	= ${ISSUING_REVOCATION_URI}
-#authorityInfoAccess	= caIssuers;${ISSUING_CERTIFICATE_URI}
+#authorityInfoAccess	   = caIssuers;${ISSUING_CERTIFICATE_URI}
 " > "${OPENSSL_CONF}"
 
 echo "done."

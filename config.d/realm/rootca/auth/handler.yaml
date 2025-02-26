@@ -15,7 +15,7 @@ Certificate:
     role: User
     arg: CN
     trust_anchor:
-        realm: democa
+        realm: rootca
 
 # Read the userdata from a YAML file defined in auth/connector.yaml
 LocalPassword:
