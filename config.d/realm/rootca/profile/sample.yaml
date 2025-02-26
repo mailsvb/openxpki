@@ -72,7 +72,7 @@ style:
         # Subject is evaluated by template toolkit with the input data from the ui.subject fields
         # Note: Fields which have max > 1 are always passed as array
         subject:
-            dn: CN=[% hostname %][% IF port AND port != 443 %]:[% port %][% END %],DC=Test Deployment,DC=OpenXPKI,DC=org
+            dn: CN=[% hostname %][% IF port AND port != 443 %]:[% port %][% END %],DC=Development,DC=Mitel,DC=org
         # You can use the fields from ui.subject here
             san: dns=[% hostname %]
 
@@ -135,7 +135,7 @@ style:
             # Items from the SAN section are also available here
             # Note that all items are always arrays, for the SAN the pipe is
             # used as separator character to split individual items later
-            dn: CN=[% CN.0 %],DC=Test Deployment,DC=OpenXPKI,DC=org
+            dn: CN=[% CN.0 %],DC=Development,DC=Mitel,DC=org
             san:
                 dns: "[% FOREACH entry = SAN_DNS %][% entry.lower %] | [% END %]"
                 ip : "[% FOREACH entry = SAN_IP %][% entry %] | [% END %]"

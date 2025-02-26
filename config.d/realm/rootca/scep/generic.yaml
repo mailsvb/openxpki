@@ -40,7 +40,7 @@ policy:
 
     # Approval
     # If not autoapproved, allow opeerator to add approval by hand
-    allow_man_approv: 1
+    allow_man_approv: 0
 
     # if the eligibiliyt check failed the first time
     # show a button to run a recheck (Workflow goes to PENDING)
@@ -57,13 +57,13 @@ policy:
     # If you dont reach the required number of points after this step and
     # allow_man_approv is set you can fill up the missing points by a
     # manual operator approval (one point per operator)
-    approval_points: 1
+    approval_points: 0
 
     # The number of active certs with the same subject that are allowed
     # to exist at the same time. The predecessor is NOT included in this
     # count so a renewal inside the expected interval is always allowed!
     # set to 0 if you dont want to check for duplicates at all
-    max_active_certs: 1
+    max_active_certs: 0
 
     # If the number of certificates found exceed max_active_certs and this
     # flag is set, ALL duplicates (except the predecessor) will be revoked

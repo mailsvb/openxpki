@@ -25,7 +25,7 @@ style:
                 - comment
 
         subject:
-            dn: CN=[% realname %]+UID=[% username %][% IF department %],DC=[% department %][% END %],DC=Test Deployment,DC=OpenXPKI,DC=org
+            dn: CN=[% realname %]+UID=[% username %][% IF department %],DC=[% department %][% END %],DC=Development,DC=Mitel,DC=org
             san:
                email: "[% email.lower %]"
 

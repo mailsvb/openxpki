@@ -11,7 +11,7 @@ validity:
 style:
     enroll:
         subject:
-            dn: CN=[% CN.0 %],OU=For Endpoint Testing Only,DC=Test Deployment,DC=OpenXPKI,DC=org
+            dn: CN=[% CN.0 %],OU=For Endpoint Testing Only,DC=Development,DC=Mitel,DC=org
 
 
 # Profile extensions - set 0/1 as needed
