@@ -17,13 +17,9 @@ revoke_on_replace:
 
 # if you remove this section, any non-renewal request will be treated
 # as an initial request, this works around non-standard MDM and devices
-authorized_signer:
-    rule1:
-        # Full DN
-        subject: CN=.+:pkiclient,.*
-    rule2:
-        # Full DN
-            subject: CN=my.scep.enroller.com:generic,.*
+#authorized_signer:
+#    rule1:
+#        subject: CN=.+:pkiclient,.*
 
 policy:
     # Authentication Options
