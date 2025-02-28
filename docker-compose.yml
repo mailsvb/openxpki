@@ -13,7 +13,7 @@ services:
       MYSQL_PASSWORD: openxpki
       MYSQL_ROOT_PASSWORD: topsecret
 
-  openxpki-server:
+  server:
     restart: unless-stopped
     image: whiterabbitsecurity/openxpki3
     command: /usr/bin/openxpkictl start --no-detach
@@ -26,7 +26,7 @@ services:
     depends_on:
         - db
 
-  openxpki-client:
+  client:
     restart: unless-stopped
     image: whiterabbitsecurity/openxpki3
     command: /usr/bin/start-apache
@@ -39,7 +39,7 @@ services:
       - openxpkisocket:/var/openxpki/
       - openxpkidbsocket:/var/run/mysqld/
     depends_on:
-        - openxpki-server
+        - server
 
 volumes:
   openxpkidb:
