@@ -14,5 +14,5 @@ docker compose up -d
 
 After the initial deployment, run the following command to create the root CA certificates
 ```
-docker exec -it openxpki-docker-openxpki-server-1 /bin/bash /etc/openxpki/contrib/sampleconfig.sh
+docker exec -it openxpki-server-1 /bin/bash /etc/openxpki/contrib/sampleconfig.sh
 ```
